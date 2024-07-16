@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consumir API con Axios en HTML</title>
+</head>
+<body>
+  <h1>Resultados de la API</h1>
+  <div id="resultadoJSON">
+    <!-- Aquí se mostrarán los resultados -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    function cargarJSON() {
+      const apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+
+      axios.get(apiUrl)
+        .then(function (response) {
+          let html = '<ul class="text-center contenedor m-0 py-5 list-unstyled">';
+
+          // Iterar sobre todos los elementos devueltos por la API
+          response.data.forEach(post => {
+            html += `
+              <li><i class="far fa-bookmark"></i> ${post.title} | 
+                  <i class="far fa-user"></i> ${post.userId} | 
+                  <i class="far fa-calendar-alt"></i> ${post.id} | 
+                  <i class="fas fa-book"></i> ${post.body}
+              </li>
+            `;
+          });
+
+          html += '</ul>';
+
+          // Mostrar los resultados en el elemento con id "resultadoJSON"
+          document.getElementById("resultadoJSON").innerHTML = html;
+        })
+        .catch(function (error) {
+          console.error('Error al cargar JSON:', error);
+        });
+    }
+
+    cargarJSON();
+  </script>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consumir API con Axios en HTML</title>
+</head>
+<body>
+  <h1>Resultados de la API</h1>
+  <div id="resultadoJSON">
+    <!-- Aquí se mostrarán los resultados -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    function cargarJSON() {
+      const apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+
+      axios.get(apiUrl)
+        .then(function (response) {
+          let lineaSeleccionada = response.data[2]; // Obtener el tercer elemento, por ejemplo
+          let html = `<ul class="text-center contenedor m-0 py-5 list-unstyled">
+                        <li><i class="far fa-bookmark"></i> ${lineaSeleccionada.title} | 
+                            <i class="far fa-user"></i> ${lineaSeleccionada.userId} | 
+                            <i class="far fa-calendar-alt"></i> ${lineaSeleccionada.id} | 
+                            <i class="fas fa-book"></i> ${lineaSeleccionada.body}
+                        </li>
+                      </ul>`;
+          document.getElementById("resultadoJSON").innerHTML = html;
+        })
+        .catch(function (error) {
+          console.error('Error al cargar JSON:', error);
+        });
+    }
+
+    cargarJSON();
+  </script>
+</body>
+</html>
