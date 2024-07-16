@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Películas Populares - TMDb API</title>
+</head>
+<body>
+  <h1>Películas Populares</h1>
+  <ul id="movies-list"></ul>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
+<script>
+    // URL de la API de TMDb
+const apiUrl = 'https://api.themoviedb.org/3/movie/popular';
+const apiKey = '192e0b9821564f26f52949758ea3c473';
+const language = 'es';
+
+// Elemento HTML donde mostrar las películas
+const moviesList = document.getElementById('movies-list');
+
+// Función para obtener y mostrar las películas populares
+function getPopularMovies() {
+  axios.get(apiUrl, {
+    params: {
+      api_key: apiKey,
+      language: language
+    }
+  })
+  .then(response => {
+    // Mostrar cada película en la lista
+    response.data.results.forEach(movie => {
+      const li = document.createElement('li');
+      li.textContent = movie.title;
+      moviesList.appendChild(li);
+    });
+  })
+  .catch(error => {
+    console.error('Error al obtener películas:', error);
+  });
+}
+
+// Llamar a la función para obtener las películas populares al cargar la página
+getPopularMovies();
+
+</script>
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Película con ID 150540 - TMDb API</title>
+</head>
+<body>
+  <h1>Película con ID 150540</h1>
+  <div id="movie-details"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+<script>// URL base de la API de TMDb
+    const apiUrl = 'https://api.themoviedb.org/3/movie/150540';
+    const apiKey = '192e0b9821564f26f52949758ea3c473';
+    const language = 'es';
+    
+    // Elemento HTML donde mostrar los detalles de la película
+    const movieDetails = document.getElementById('movie-details');
+    
+    // Función para obtener y mostrar los detalles de la película con ID 150540
+    function getMovieDetails() {
+      axios.get(apiUrl, {
+        params: {
+          api_key: apiKey,
+          language: language
+        }
+      })
+      .then(response => {
+        const movie = response.data;
+    
+        // Construir la estructura de los detalles de la película
+        const html = `
+          <h2>${movie.title}</h2>
+          <p><strong>Descripción:</strong> ${movie.overview}</p>
+          <p><strong>Fecha de lanzamiento:</strong> ${movie.release_date}</p>
+          <p><strong>Puntuación:</strong> ${movie.vote_average}</p>
+        `;
+    
+        // Mostrar los detalles en el elemento HTML
+        movieDetails.innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Error al obtener detalles de la película:', error);
+      });
+    }
+    
+    // Llamar a la función para obtener los detalles de la película al cargar la página
+    getMovieDetails();
+    </script>
